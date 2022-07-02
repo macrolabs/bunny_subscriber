@@ -38,9 +38,10 @@ module BunnySubscriber
         options[:arguments] = { 'x-dead-letter-exchange': dl_exchange }
       end
 
-      channel.queue(
-        consumer.subscriber_options[:queue_name], options
-      )
+      queue = channel.queue(consumer.subscriber_options[:queue_name], options)
+      exchange = channel.fanout(consumer.subscriber_options[:exchange_name], options)
+
+      queue.bind(exchange, routing_key: consumer.subscriber_options[:routing_key])
     end
   end
 end
