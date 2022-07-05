@@ -28,7 +28,7 @@ module BunnySubscriber
 
     def bunny_connection
       options = Configuration.instance.bunny_options.to_h
-      @conn = Bunny.new(ENV['RABBITMQ_URL'], options)
+      @conn = Bunny.new(ENV['RABBITMQ_URL'] || options)
     end
 
     def consumers
