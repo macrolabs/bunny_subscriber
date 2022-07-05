@@ -27,7 +27,7 @@ module BunnySubscriber
     end
 
     def bunny_connection
-      options = Configuration.instance.bunny_options.to_h
+      options = Configuration.instance.bunny_options.to_h unless ENV['RABBITMQ_URL'].present?
       @conn = Bunny.new(options)
     end
 
